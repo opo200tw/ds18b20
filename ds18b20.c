@@ -12,16 +12,19 @@ uint8_t 	TempSensorCount=0;
 uint8_t		Ds18b20StartConvert=0;
 uint16_t	Ds18b20Timeout=0;
 #if (_DS18B20_USE_FREERTOS==1)
-osThreadId 	Ds18b20Handle;
-void Task_Ds18b20(void const * argument);
+osTimerId_t Ds18b20Handle;
+void Task_Ds18b20(void * argument);
+const osThreadAttr_t myTask_Ds18b20_attributes = {
+		.name = "myTask_Ds18b20",
+		.priority = (osPriority_t)osPriorityNormal,
+		.stack_size = 512};
 #endif
 
 //###########################################################################################
-#if (_DS18B20_USE_FREERTOS==1)
-void	Ds18b20_Init(osPriority Priority)
+#if (_DS18B20_USE_FREERTOS == 1)
+void	Ds18b20_Init(osPriority_t Priority)
 {
-	osThreadDef(myTask_Ds18b20, Task_Ds18b20, Priority, 0, 128);
-  Ds18b20Handle = osThreadCreate(osThread(myTask_Ds18b20), NULL);	
+	Ds18b20Handle = osThreadNew(Task_Ds18b20, NULL, &myTask_Ds18b20_attributes);
 }
 #else
 bool	Ds18b20_Init(void)
@@ -100,7 +103,7 @@ bool	Ds18b20_ManualConvert(void)
 }
 //###########################################################################################
 #if (_DS18B20_USE_FREERTOS==1)
-void Task_Ds18b20(void const * argument)
+void Task_Ds18b20(void * argument)
 {
 	uint8_t	Ds18b20TryToFind=5;
 	do
@@ -122,7 +125,7 @@ void Task_Ds18b20(void const * argument)
 		Ds18b20TryToFind--;
 	}while(Ds18b20TryToFind>0);
 	if(Ds18b20TryToFind==0)
-		vTaskDelete(Ds18b20Handle);
+		osThreadTerminate(Ds18b20Handle);
 	for (uint8_t i = 0; i < TempSensorCount; i++)
 	{
 		Ds18b20Delay(50);

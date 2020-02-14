@@ -61,7 +61,7 @@ typedef enum {
 
 //###################################################################################
 #if (_DS18B20_USE_FREERTOS==1)
-void			Ds18b20_Init(osPriority Priority);
+void			Ds18b20_Init(osPriority_t Priority);
 #else
 bool			Ds18b20_Init(void);
 #endif

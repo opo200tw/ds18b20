@@ -12,7 +12,7 @@ uint8_t 	TempSensorCount=0;
 uint8_t		Ds18b20StartConvert=0;
 uint16_t	Ds18b20Timeout=0;
 #if (_DS18B20_USE_FREERTOS==1)
-osTimerId_t Ds18b20Handle;
+osThreadId_t Ds18b20Handle;
 void Task_Ds18b20(void * argument);
 const osThreadAttr_t myTask_Ds18b20_attributes = {
 		.name = "myTask_Ds18b20",

@@ -1,7 +1,4 @@
-
-
 #include "ds18b20.h"
-
 
 //###################################################################################
 Ds18b20Sensor_t	ds18b20[_DS18B20_MAX_SENSORS];
@@ -14,17 +11,19 @@ uint16_t	Ds18b20Timeout=0;
 #if (_DS18B20_USE_FREERTOS==1)
 osThreadId_t Ds18b20Handle;
 void Task_Ds18b20(void * argument);
-const osThreadAttr_t myTask_Ds18b20_attributes = {
-		.name = "myTask_Ds18b20",
-		.priority = (osPriority_t)osPriorityNormal,
-		.stack_size = 512};
 #endif
 
 //###########################################################################################
 #if (_DS18B20_USE_FREERTOS == 1)
-void	Ds18b20_Init(osPriority_t Priority)
+void Ds18b20_Init(void *arg)
 {
+	const osThreadAttr_t myTask_Ds18b20_attributes = {
+			.name = "Task_Ds18b20",
+			.priority = (osPriority_t)osPriorityBelowNormal,
+			.stack_size = 512
+	};
 	Ds18b20Handle = osThreadNew(Task_Ds18b20, NULL, &myTask_Ds18b20_attributes);
+	osThreadExit();
 }
 #else
 bool	Ds18b20_Init(void)

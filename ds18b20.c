@@ -19,7 +19,7 @@ void Ds18b20_Init(void *arg)
 {
 	const osThreadAttr_t myTask_Ds18b20_attributes = {
 			.name = "Task_Ds18b20",
-			.priority = (osPriority_t)osPriorityBelowNormal,
+			.priority = (osPriority_t)osPriorityNormal,
 			.stack_size = 512
 	};
 	Ds18b20Handle = osThreadNew(Task_Ds18b20, NULL, &myTask_Ds18b20_attributes);

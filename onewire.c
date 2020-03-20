@@ -60,11 +60,11 @@ void OneWire_Init(OneWire_t* OneWireStruct, GPIO_TypeDef* GPIOx, uint16_t GPIO_P
 	OneWireStruct->GPIO_Pin = GPIO_Pin;
 	ONEWIRE_OUTPUT(OneWireStruct);
 	ONEWIRE_HIGH(OneWireStruct);
-	OneWireDelay(1000);
+	OneWireDelay(100);
 	ONEWIRE_LOW(OneWireStruct);
-	OneWireDelay(1000);
+	OneWireDelay(100);
 	ONEWIRE_HIGH(OneWireStruct);
-	OneWireDelay(2000);
+	OneWireDelay(200);
 }
 
 inline uint8_t OneWire_Reset(OneWire_t* OneWireStruct)

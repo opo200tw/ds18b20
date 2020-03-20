@@ -142,10 +142,10 @@ void Task_Ds18b20(void * argument)
 		}
 		Ds18b20Timeout=_DS18B20_CONVERT_TIMEOUT_MS/10;
 		DS18B20_StartAll(&OneWire);
-		osDelay(100);
-    while (!DS18B20_AllDone(&OneWire))
+		Ds18b20Delay(100);
+		while (!DS18B20_AllDone(&OneWire))
 		{
-			osDelay(10);  
+			Ds18b20Delay(10);
 			Ds18b20Timeout-=1;
 			if(Ds18b20Timeout==0)
 				break;
@@ -154,7 +154,7 @@ void Task_Ds18b20(void * argument)
 		{
 			for (uint8_t i = 0; i < TempSensorCount; i++)
 			{
-				Ds18b20Delay(1000);
+				Ds18b20Delay(100);
 				ds18b20[i].DataIsValid = DS18B20_Read(&OneWire, ds18b20[i].Address, &ds18b20[i].Temperature);
 			}
 		}
@@ -164,7 +164,7 @@ void Task_Ds18b20(void * argument)
 				ds18b20[i].DataIsValid = false;
 		}
 		Ds18b20StartConvert=0;
-    osDelay(_DS18B20_UPDATE_INTERVAL_MS);
+		Ds18b20Delay(_DS18B20_UPDATE_INTERVAL_MS);
 	}
 }
 #endif

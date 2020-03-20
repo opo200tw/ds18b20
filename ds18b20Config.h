@@ -9,7 +9,7 @@
 #define	_DS18B20_GPIO												SW01_GPIO_Port
 #define	_DS18B20_PIN												SW01_Pin
 
-#define	_DS18B20_CONVERT_TIMEOUT_MS					200		
+#define	_DS18B20_CONVERT_TIMEOUT_MS					100		
 #if (_DS18B20_USE_FREERTOS==1)
 #define	_DS18B20_UPDATE_INTERVAL_MS					100					//  (((	if==0  >> Ds18b20_ManualConvert()  )))    ((( if>0  >>>> Auto refresh ))) 
 #endif

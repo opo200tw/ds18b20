@@ -10,7 +10,7 @@
 
 #if (_DS18B20_USE_FREERTOS==1)
 #include "cmsis_os.h"
-#define	Ds18b20Delay(x)			osDelay(x)
+#define	Ds18b20Delay(x)			osDelay(pdMS_TO_TICKS(x))
 #else
 #define	Ds18b20Delay(x)			HAL_Delay(x)
 #endif

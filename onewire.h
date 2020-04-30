@@ -10,7 +10,7 @@ extern "C" {
 #include "gpio.h"
 #if (_DS18B20_USE_FREERTOS==1)
 #include "cmsis_os.h"
-#define	OneWireDelay(x)			osDelay(x)
+#define	OneWireDelay(x)			osDelay(pdMS_TO_TICKS(x))
 #else
 #define	OneWireDelay(x)			HAL_Delay(x)
 #endif

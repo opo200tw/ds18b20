@@ -109,7 +109,7 @@ void Task_Ds18b20(void * argument)
 	{
 		OneWire_Init(&OneWire,_DS18B20_GPIO ,_DS18B20_PIN);
 		TempSensorCount = 0;	
-		while(HAL_GetTick() < 3000)
+		while(HAL_GetTick() < 1000)
 			Ds18b20Delay(100);
 		OneWireDevices = OneWire_First(&OneWire);
 		while (OneWireDevices)

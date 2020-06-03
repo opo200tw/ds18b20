@@ -8,6 +8,7 @@ extern "C" {
 #endif
 
 #include "gpio.h"
+#include "ds18b20Config.h"
 #if (_DS18B20_USE_FREERTOS==1)
 #include "cmsis_os.h"
 #define	OneWireDelay(x)			osDelay(pdMS_TO_TICKS(x))
